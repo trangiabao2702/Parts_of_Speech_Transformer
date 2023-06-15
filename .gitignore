@@ -1,5 +1,5 @@
 /node_modules
 
-/.env
+.env
 
-/model.bin
+/model.bin/pytorch_model.bin
