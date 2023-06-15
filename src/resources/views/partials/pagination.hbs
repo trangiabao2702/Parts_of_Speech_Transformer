@@ -1,0 +1,30 @@
+<style>
+    li:hover {
+        cursor: pointer;
+    }
+</style>
+
+<nav aria-label="page navigation">
+    <ul class="pagination justify-content-end pe-3" id="pagination"></ul>
+</nav>
+
+<script>
+    function show_pagination(history_length, history_per_page) {
+        // render
+        const number_of_pages = ((history_length / history_per_page) >> 0) + (history_length % history_per_page != 0 ? 1 : 0);
+
+        $("#pagination").append(`<li class="page-item page-link" id="previous"><span aria-hidden="true">&laquo;</span></li>`);
+
+        for (let i = 0; i < number_of_pages; i++) {
+            $("#pagination").append(`<li class="page-item page-link" id="page-${i + 1}">${i + 1}</li>`);
+        }
+
+        $("#pagination").append(`<li class="page-item page-link" id="next"><span aria-hidden="true">&raquo;</span></li>`);
+
+        // show current active page
+        $("#page-1").toggleClass("active");
+
+        // return number of pages
+        return number_of_pages
+    }
+</script>

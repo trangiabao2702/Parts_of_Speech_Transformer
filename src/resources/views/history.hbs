@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-lg-10 col-sm-8 mb-1">
+        <div class="card">
+            <h5 class="card-header text-bg-secondary d-flex justify-content-between align-items-center">
+                Transformed Text
+                <button class="btn btn-outline-secondary" disabled>...</button>
+            </h5>
+            <span id="history_text" class="card-body text-bg-light d-flex flex-column" placeholder="History..."
+                style="border: none; min-height: 45 em" disabled readonly></span>
+
+            {{> pagination}}
+        </div>
+    </div>
+
+    {{> sidebar}}
+</div>
+
+<script>
+    // toggle active page
+    $("#history_page").addClass("active")
+
+    // get history from storage
+    let _history = JSON.parse(localStorage.getItem("history")) || [];
+
+    // render history per page
+    const history_per_page = 5;
+    function render_history(page) {
+        $("#history_text").text("");
+
+        const start_index = history_per_page * (page - 1);
+        const end_index = start_index + 5 < _history.length ? start_index + 5 : _history.length;
+
+        for (let i = start_index; i < end_index; i++) {
+            $(`<div class="card" style="height: 7em; margin-bottom: 1em;">
+            <div class="row no-gutters">
+              <div class="col-md-1 d-flex justify-content-center align-items-center text-bg-dark rounded-start" style="margin-top: -1.5px;"><h5>#${_history.length - i}</h5></div>
+              <span class="col-md-11 card-body" style="height: 7rem;">${_history[i]}</span>
+            </div>
+          </div>`).appendTo("#history_text"); //d-flex justify-content-between align-content-between flex-wrap
+        }
+    }
+
+    // first render
+    render_history(1);
+    $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    })
+
+    // render pagination
+    const number_of_pages = show_pagination(_history.length, history_per_page)
+
+    // handle pagination
+    $(".page-item").click(function () {
+        let clicked_id = $(this).attr("id");
+        let current_id = parseInt($(".page-item.page-link.active").attr("id").slice(5));
+        let new_id = "";
+
+        $(".page-item.page-link.active").toggleClass("active");
+
+        if (clicked_id == "previous") {
+            // click previous page-item
+            new_id = "page-" + (current_id - 1 > 0 ? current_id - 1 : current_id);
+        } else if (clicked_id == "next") {
+            // click next page-item
+            new_id = "page-" + (current_id + 1 <= number_of_pages ? current_id + 1 : current_id);
+        } else {
+            new_id = "page-" + parseInt(clicked_id.slice(5));
+        }
+
+        $(`#${new_id}`).toggleClass("active");
+
+        render_history(parseInt(new_id.slice(5)));
+
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        })
+    });
+</script>

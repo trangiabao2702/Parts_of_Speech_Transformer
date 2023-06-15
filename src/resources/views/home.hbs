@@ -1,0 +1,112 @@
+<style>
+    textarea,
+    span,
+    p {
+        border-radius: 5px;
+    }
+
+    span:empty:not(:focus)::before {
+        content: attr(placeholder);
+        color: gray;
+    }
+
+    textarea:focus {
+        outline: none;
+        box-shadow: none;
+    }
+</style>
+
+<form action="/" method="POST">
+    <div class="row">
+        <div class="col-lg-5 col-sm-6 mb-3 mb-sm-0 mb-1">
+            <div class="card">
+                <h5 class="card-header text-bg-secondary d-flex justify-content-between align-items-center">
+                    Input Text
+                    <button id="btn_transform" class="btn btn-outline-light" type="submit">Transform</button>
+                </h5>
+                <textarea id="input_text" class="card-body" placeholder="Enter your text here..."
+                    style="border: none; min-height: 35em; max-height: 50em"
+                    name="input_text">{{ original_text }}</textarea>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-sm-6 mb-1">
+            <div class="card">
+                <h5 class="card-header text-bg-secondary d-flex justify-content-between align-items-center">
+                    Transform Text
+                    <button class="btn btn-outline-secondary" disabled>...</button>
+                </h5>
+                <span id="output_text" class="card-body text-bg-light"
+                    placeholder="The result after defining part of speech..." style="border: none; min-height: 35em"
+                    disabled readonly></span>
+            </div>
+        </div>
+
+        {{> sidebar}}
+    </div>
+</form>
+<script>
+    // toggle active page
+    $("#home_page").addClass("active")
+
+    // init color for text
+    let TextColor = [
+        { type: "X", description: "Undefined", bg_color: "transparent", text_color: "black" },
+        { type: "NUM", description: "Numbers", bg_color: "orangered", text_color: "white" },
+        { type: "PART", description: "Particles", bg_color: "green", text_color: "white" },
+        { type: "SCONJ", description: "Subordinating Conjunctions", bg_color: "lightblue", text_color: "#000080" },
+        { type: "PUNCT", description: "Punctuation Marks", bg_color: "yellow", text_color: "#654321" },
+        { type: "PRON", description: "Pronouns", bg_color: "purple", text_color: "white" },
+        { type: "AUX", description: "Auxiliary Verbs", bg_color: "orange", text_color: "white" },
+        { type: "DET", description: "Determiners", bg_color: "pink", text_color: "#4B0082" },
+        { type: "ADJ", description: "Adjectives", bg_color: "brown", text_color: "white" },
+        { type: "SYM", description: "Symbols", bg_color: "gray", text_color: "white" },
+        { type: "INTJ", description: "Interjections", bg_color: "black", text_color: "white" },
+        { type: "ADV", description: "Adverbs", bg_color: "darkgreen", text_color: "beige" },
+        { type: "CCONJ", description: "Coordinating Conjunctions", bg_color: "cyan", text_color: "#444444" },
+        { type: "PROPN", description: "Proper Nouns", bg_color: "magenta", text_color: "white" },
+        { type: "VERB", description: "Verbs", bg_color: "teal", text_color: "white" },
+        { type: "NOUN", description: "Nouns", bg_color: "navy", text_color: "white" },
+        { type: "ADP", description: "Adpositions or Prepositions", bg_color: "olive", text_color: "white" },
+    ];
+
+    // handle transformed text
+    const transformedText = " {{ transformed_text }} "
+
+    if (transformedText != "  ") {
+        const parts = transformedText.split(") ");
+
+        for (let i = 0; i < parts.length - 1; i++) {
+            let word = parts[i].split(" (");
+            let textColor = TextColor.find((obj) => obj.type === word[1]);
+            let textContent = `&nbsp;${word[0]}&nbsp;`;
+
+            $(`
+                <span style="background-color: ${textColor.bg_color}; color: ${textColor.text_color}"
+                    tabindex="0"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="${word[1]} - ${textColor.description}">
+                ${textContent}
+                </span>
+            `).appendTo("#output_text");
+
+            $(`<span>&nbsp;</span>`).appendTo("#output_text");
+        }
+
+        $(document).ready(function () {
+            // enable tooltips
+            $('[data-bs-toggle="tooltip"]').tooltip();
+
+            // get old history from storage
+            let _history = JSON.parse(localStorage.getItem("history")) || [];
+
+            // add new transformed text to history
+            _history.unshift(`${$("#output_text").html()}`);
+
+            // update history to local storage
+            localStorage.setItem("history", JSON.stringify(_history));
+        });
+    }
+
+</script>
