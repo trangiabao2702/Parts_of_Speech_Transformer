@@ -23,7 +23,8 @@ def split_sentence(sentence):
         
     return words
 
-tag2idx = {'X': 0, 'NUM': 1, 'PART': 2, 'SCONJ': 3, 'PUNCT': 4, 'PRON': 5, 'AUX': 6, 'DET': 7, 'ADJ': 8, 'SYM': 9, 'INTJ': 10, 'ADV': 11, 'CCONJ': 12, 'PROPN': 13, 'VERB': 14, 'NOUN': 15, 'ADP': 16}
+# tag2idx = {'X': 0, 'NUM': 1, 'PART': 2, 'SCONJ': 3, 'PUNCT': 4, 'PRON': 5, 'AUX': 6, 'DET': 7, 'ADJ': 8, 'SYM': 9, 'INTJ': 10, 'ADV': 11, 'CCONJ': 12, 'PROPN': 13, 'VERB': 14, 'NOUN': 15, 'ADP': 16}
+tag2idx = {'DET': 0, 'NOUN': 1, 'SYM': 2, 'CCONJ': 3, 'ADP': 4, 'AUX': 5, 'PRON': 6, 'VERB': 7, 'PART': 8, 'PROPN': 9, 'INTJ': 10, 'SCONJ': 11, 'NUM': 12, 'PUNCT': 13, 'ADJ': 14, 'X': 15, 'ADV': 16}
 
 # Đường dẫn và tên file đã lưu mô hình
 saved_model_file = "model.bin"
@@ -39,7 +40,8 @@ def predict_sentence(sentence):
 
     # Tiền xử lý câu đầu vào
     original_words = split_sentence(sentence)
-    tokenized_sentence = tokenizer.tokenize(sentence)
+    # tokenized_sentence = tokenizer.tokenize(sentence)
+    tokenized_sentence = [x.lower() for x in original_words]
     input_ids = torch.tensor([tokenizer.convert_tokens_to_ids(tokenized_sentence)])
 
     # Tạo tensor input masks để chỉ ra các vị trí thực sự chứa từ và padding
@@ -57,6 +59,12 @@ def predict_sentence(sentence):
     predicted_labels = np.argmax(logits.detach().cpu().numpy(), axis=2)[0]
     predicted_labels = [idx2tag[idx] for idx in predicted_labels]
 
+    # print("original_words: ", len(original_words))
+    # print("tokenized_sentence: ", len(tokenized_sentence))
+    # print("predicted_labels: ", len(predicted_labels))
+    # print(original_words)
+    # print(tokenized_sentence)
+    
     combined = [f"{original_words[i]} ({predicted_labels[i]})" for i in range(len(tokenized_sentence))]
     combined_string = " ".join(combined)
 
