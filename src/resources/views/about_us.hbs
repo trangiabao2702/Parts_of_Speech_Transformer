@@ -1,4 +1,290 @@
+<section style="background-color: #eee">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mentorplus.co.in/wp-content/uploads/2023/01/Parts-of-Speech-With-5-Examples-Each.jpg"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 350px" />
+                        <h5 class="my-3">Parts of Speech</h5>
+                        <p class="text-muted mb-1">CSC15004 - Học thống kê</p>
+                        <p class="text-muted mb-4">Class 20_22</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-header text-bg-dark fw-bold" style="font-size: 1.2rem">Team Members</div>
+                    <div class="card-body">
+                        <table class="table caption-top table-hover">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th scope="col">Student's ID</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">20120420</td>
+                                    <td>Hồ Xuân Quang</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">20120434</td>
+                                    <td>Trần Gia Bảo</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">20120456</td>
+                                    <td>Lê Phước Đôn</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">20120485</td>
+                                    <td>Lê Văn Hùng</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs pt-1">
+                            <li class="nav-item">
+                                <div id="nav-evaluation" class="nav-link active fw-medium" style="cursor: pointer">
+                                    Evaluation</div>
+                            </li>
+                            <li class="nav-item">
+                                <div id="nav-transformer" class="nav-link text-secondary" style="cursor: pointer">About
+                                    Transformer</div>
+                            </li>
+                            <li class="nav-item">
+                                <div id="nav-bert" class="nav-link text-secondary" style="cursor: pointer">About Bert
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="main-content" class="row m-0"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script>
     // toggle active page
     $("#about_us_page").addClass("active")
+
+    let Evaluation = [
+        {
+            measure: "precision",
+            result: [
+                { part: "ADJ", value: 0.9512 },
+                { part: "ADP", value: 0.9979 },
+                { part: "ADV", value: 0.9845 },
+                { part: "AUX", value: 0.993 },
+                { part: "CCONJ", value: 0.9988 },
+                { part: "DET", value: 0.9955 },
+                { part: "INTJ", value: 0.8769 },
+                { part: "NOUN", value: 0.9319 },
+                { part: "NUM", value: 0.9694 },
+                { part: "PART", value: 0.9868 },
+                { part: "PRON", value: 0.9986 },
+                { part: "PROPN", value: 0.9197 },
+                { part: "PUNCT", value: 0.9951 },
+                { part: "SCONJ", value: 0.9985 },
+                { part: "SYM", value: 0.963 },
+                { part: "VERB", value: 0.9661 },
+                { part: "X", value: 0.94 },
+            ],
+        },
+        {
+            measure: "recall",
+            result: [
+                { part: "ADJ", value: 0.941 },
+                { part: "ADP", value: 0.9985 },
+                { part: "ADV", value: 0.9792 },
+                { part: "AUX", value: 0.9946 },
+                { part: "CCONJ", value: 0.9988 },
+                { part: "DET", value: 0.9982 },
+                { part: "INTJ", value: 0.75 },
+                { part: "NOUN", value: 0.9652 },
+                { part: "NUM", value: 0.9979 },
+                { part: "PART", value: 0.9988 },
+                { part: "PRON", value: 0.9939 },
+                { part: "PROPN", value: 0.8665 },
+                { part: "PUNCT", value: 0.9979 },
+                { part: "SCONJ", value: 0.9939 },
+                { part: "SYM", value: 0.9455 },
+                { part: "VERB", value: 0.9646 },
+                { part: "X", value: 0.6184 },
+            ],
+        },
+        {
+            measure: "f1-score",
+            result: [
+                { part: "ADJ", value: 0.9461 },
+                { part: "ADP", value: 0.9932 },
+                { part: "ADV", value: 0.9818 },
+                { part: "AUX", value: 0.9938 },
+                { part: "CCONJ", value: 0.9988 },
+                { part: "DET", value: 0.9968 },
+                { part: "INTJ", value: 0.8085 },
+                { part: "NOUN", value: 0.9482 },
+                { part: "NUM", value: 0.9834 },
+                { part: "PART", value: 0.9927 },
+                { part: "PRON", value: 0.9963 },
+                { part: "PROPN", value: 0.8923 },
+                { part: "PUNCT", value: 0.9965 },
+                { part: "SCONJ", value: 0.9962 },
+                { part: "SYM", value: 0.9541 },
+                { part: "VERB", value: 0.9653 },
+                { part: "X", value: 0.746 },
+            ],
+        },
+    ];
+
+    function render_evaluation() {
+        $(".nav-link.active.fw-medium").toggleClass("active fw-medium text-secondary");
+        $("#nav-evaluation").toggleClass("active fw-medium text-secondary");
+        $("#main-content").text("");
+
+        $("#main-content").append(
+            `
+        <div class="">
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body">
+              <table class="table caption-top table-hover">
+                <thead class="table-secondary">
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">precision</th>
+                    <th scope="col">recall</th>
+                    <th scope="col">f1-score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>accuracy</th>
+                    <td scope="row"></td>
+                    <td></td>
+                    <td>0.9725</td>
+                  </tr>
+                  <tr>
+                    <th>macro avg</th>
+                    <td scope="row"0.9686></td>
+                    <td>0.9408</td>
+                    <td>0.9524</td>
+                  </tr>
+                  <tr>
+                    <th>weighted avg</th>
+                    <td scope="row">0.9724</td>
+                    <td>0.9725</td>
+                    <td>0.9722</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        `
+        );
+
+        for (let i = 0; i < Evaluation.length; i++) {
+            $("#main-content").append(
+                `
+          <div class="col-md-4">
+            <div class="card mt-2 mb-2">
+              <div id="${Evaluation[i].measure}-content" class="card-body">
+                <p class="mb-0"><span class="fw-medium">${Evaluation[i].measure}</span></p>
+              </div>
+            </div>
+          </div>
+          `
+            );
+
+            for (let j = 0; j < Evaluation[i].result.length; j++) {
+                $(`#${Evaluation[i].measure}-content`).append(
+                    `
+            <div class="d-flex justify-content-between">
+              <p class="mt-3 mb-1" style="font-size: 0.77rem">${Evaluation[i].result[j].part}</p>
+              <p class="mt-3 mb-1" style="font-size: 0.77rem">${Evaluation[i].result[j].value}</p>
+            </div>
+            <div class="progress rounded" style="height: 5px">
+              <div class="progress-bar" role="progressbar" style="width: ${Evaluation[i].result[j].value * 100}%"></div>
+            </div>
+            `
+                );
+            }
+        }
+    }
+
+    render_evaluation();
+
+    $("#nav-evaluation").click((e) => {
+        render_evaluation();
+    });
+
+    $("#nav-transformer").click((e) => {
+        $(".nav-link.active.fw-medium").toggleClass("active fw-medium text-secondary");
+        $("#nav-transformer").toggleClass("active fw-medium text-secondary");
+        $("#main-content").text("");
+
+        $("#main-content").append(
+            `
+          <h4>The Transformer architecture consists of two main components: Encoder and Decoder.</h4>
+          <div class="col d-flex justify-content-center">
+            <img src="https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png" alt="transformer_encoder_decoder" width="50%" />
+          </div>
+          
+          <ul class="ms-4">
+            <li>The Encoder transforms sequence inputs into vector representations using the self-attention mechanism, which helps the model focus on different parts of the input to determine the connections between words in the sequence.</li>
+            <li>The output of the top most encoder is fed into each decoder to generate sequence outputs. This process also utilizes the self-attention mechanism to focus on different parts of the output sequence, helping the model predict the next words in the sequence.</li>
+          </ul>
+
+          <div class="col d-flex justify-content-center">
+            <img src="https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png" alt="attention_research" width="50%" />
+          </div>
+
+          <h4>The main mechanisms in the Transformer architecture include:</h4>
+          <ul class="ms-4">
+            <li>Self-attention</li>
+            <li>Multi-Head Attention</li>
+            <li>Residual connections & layer normalization</li>
+            <li>Positional Encoding</li>
+            <li>Feedforward networks</li>
+          </ul>
+          <p>The most crucial mechanism of the Transformer architecture is the self-attention mechanism. It compares all input sequence members with each other, and modifies the corresponding output sequence positions. Each token will "observe" other tokens, collect the context of the sentence, and update the representation vector. In addition, there are many other important mechanisms such as multi-head attention, residual connections, layer normalization, positional encoding, feedforward networks. All these mechanisms form the core components of the Transformer architecture and have been shown to be highly effective for a wide range of natural language processing tasks.</p>
+        `
+        );
+    });
+
+    $("#nav-bert").click((e) => {
+        $(".nav-link.active.fw-medium").toggleClass("active fw-medium text-secondary");
+        $("#nav-bert").toggleClass("active fw-medium text-secondary");
+        $("#main-content").text("");
+
+        $("#main-content").append(
+            `
+          <h4>BERT (language model)</h4>
+          <p>BERT (Bidirectional Encoder Representations from Transformers) is a language modeling architecture based on Transformer. Thanks to Transformer's self-attention mechanism, the BERT model is capable of bidirectional natural language processing, i.e. can understand the context of a word by looking at the words before and after it in the sentence.</p>
+          
+          <hr/>
+
+          <h4>BERT Explained: State of the art language model for NLP</h4>
+          <div class="col d-flex justify-content-center">
+            <img src="https://www.researchgate.net/publication/359157231/figure/fig2/AS:1154004419653639@1652147502076/Different-layers-in-Google-BERTs-architectureReproduced-from-the-original-BERT-paper.png" alt="transformer_encoder_decoder" width="50%" style="margin-bottom: 2em" />
+          </div>
+          
+          <hr/>
+          
+          <h4>Overall pre-training and fine-tuning</h4>
+          <div class="col d-flex justify-content-center">
+            <img src="https://production-media.paperswithcode.com/methods/new_BERT_Overall.jpg" alt="Overall pre-training and fine-tuning" width="80%" />
+          </div>
+        `
+        );
+    });
 </script>
